@@ -1,0 +1,35 @@
+<Context> 
+  <Resource 
+   name="jdbc/OracleDB" 
+   auth="Container"
+   type="javax.sql.DataSource" 
+   
+   url="jdbc:oracle:thin:@localhost:1521:XE"
+   username="system" 
+   password="1234"   
+   driverClassName="oracle.jdbc.driver.OracleDriver"
+   
+   factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+  
+   maxActive="500" 
+   maxWait="1000"
+   maxIdle="100"/>
+  <!--  
+   <Resource 
+   name="jdbc/MySqlDB" 
+   auth="Container"
+   type="javax.sql.DataSource" 
+   
+   url="jdbc:mysql://localhost:3306:testdb"
+   username="java" 
+   password="java"   
+   driverClassName="com.mysql.cj.jdbc.Driver"
+   
+   factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+  
+   maxActive="500" 
+   maxWait="1000"
+   maxIdle="100"/>  
+    -->
+</Context>
+<!-- url ="jdbc:oracle:thin:@127.0.0.1:1521:xe" <-> localhost 127.0.0.1 -->
