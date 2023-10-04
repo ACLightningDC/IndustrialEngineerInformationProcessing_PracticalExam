@@ -39,3 +39,6 @@ insert into tbl_class_202201 values('202203','10001' ,'서울본원',100000 , '1
 insert into tbl_class_202201 values('202203','10001' ,'서울본원',200000 , '200');
 insert into tbl_class_202201 values('202203','10001' ,'서울본원',150000 , '300');
 insert into tbl_class_202201 values('202203','10001' ,'서울본원',200000 , '400');
+
+select to_char( regist_month , 'YYYY"년"MM"월"') from tbl_class_202201;
+select to_char(to_date(regist_month , 'YYYYMM'),'YYYY"년"MM"월"') from tbl_class_202201;
