@@ -1,0 +1,7 @@
+@charset "UTF-8";
+#selectEacherSalesTable {
+	
+}
+#selectEacherSalesTable td:nth-child(3) ,#selectEacherSalesTable td:nth-child(4) {
+	text-align: right;
+}

@@ -42,3 +42,6 @@ insert into tbl_class_202201 values('202203','10001' ,'서울본원',200000 , '4
 
 select to_char( regist_month , 'YYYY"년"MM"월"') from tbl_class_202201;
 select to_char(to_date(regist_month , 'YYYYMM'),'YYYY"년"MM"월"') from tbl_class_202201;
+
+select teacher.teacher_code , teacher.class_name , teacher.teacher_name , sum(tuition) from tbl_teacher_202201 teacher join tbl_class_202201 class using (teacher_code) group by teacher.teacher_code , teacher.class_name , teacher.teacher_name ;
+select teacher_code , class_name , teacher_name , to_char(sum(tuition) ,'L999,999,999')from tbl_teacher_202201 join tbl_class_202201 using (teacher_code) group by teacher_code , class_name , teacher_name ;

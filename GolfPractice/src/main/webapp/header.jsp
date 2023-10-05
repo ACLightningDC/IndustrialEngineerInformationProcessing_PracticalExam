@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
 <%@ include file="connection.jsp" %>
 <%
 // TODO 실행하기
