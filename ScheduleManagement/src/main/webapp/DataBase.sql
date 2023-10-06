@@ -73,20 +73,33 @@ from tbl_product join tbl_worklist using(p_code) join tbl_process using(w_workno
 order by w_workno;
 
 /*substr 붙이기*/
-select substr(w_workno,1,4)||'-'||substr(w_workno,5,8) w_workno, p_code ,p_name ,decode(p_p1,'Y','완료','N','-') ,decode(p_p2,'Y','완료','N','-') ,decode(p_p3,'Y','완료','N','-'), decode(p_p4,'Y','완료','N','-') ,decode(p_p5,'Y','완료','N','-') , decode(p_p6,'Y','완료','N','-') ,to_char(to_date(w_lastdate ,'yyyymmdd'),'YYYY-MM-DD'), to_char(to_date(w_lasttime ,'HH24MI'),'HH24:MI')from tbl_product join tbl_worklist using(p_code) join tbl_process using(w_workno) order by w_workno;
+select substr(w_workno,1,4)||'-'||substr(w_workno,5,4) w_workno, p_code ,p_name ,decode(p_p1,'Y','완료','N','-') ,decode(p_p2,'Y','완료','N','-') ,decode(p_p3,'Y','완료','N','-'), decode(p_p4,'Y','완료','N','-') ,decode(p_p5,'Y','완료','N','-') , decode(p_p6,'Y','완료','N','-') ,to_char(to_date(w_lastdate ,'yyyymmdd'),'YYYY-MM-DD'), to_char(to_date(w_lasttime ,'HH24MI'),'HH24:MI')from tbl_product join tbl_worklist using(p_code) join tbl_process using(w_workno) order by w_workno;
 
 /*regexp_replace 사용 법*/
 select regexp_replace(w_workno , '([[:digit:]]{4})([[:digit:]]{4})','\1-\2') w_workno, p_code ,p_name ,decode(p_p1,'Y','완료','N','-') ,decode(p_p2,'Y','완료','N','-') ,decode(p_p3,'Y','완료','N','-'), decode(p_p4,'Y','완료','N','-') ,decode(p_p5,'Y','완료','N','-') , decode(p_p6,'Y','완료','N','-') ,to_char(to_date(w_lastdate ,'yyyymmdd'),'YYYY-MM-DD'), to_char(to_date(w_lasttime ,'HH24MI'),'HH24:MI')from tbl_product join tbl_worklist using(p_code) join tbl_process using(w_workno) order by w_workno;
 
 
+/*
+ * 
+ */
+
+select * tbl_process pc , tbl_worklist w
+where pc.w_workno = W.w_workno; --등가조인
+
+--[순서-2]외부조인 해야 함 
+
+select substr(PC.w_workno)
+from TBL_PROCESS PC , TBL_WORKLIST W
+where PC.w_workno = W.w_workno(+);
+
+select substr(PC.w_work,1,4)||'-'||substr(PC.w_workno,5,4) as w_workno,
+p_code,
 
 
 
-
-
-
-
-
+substr(w_lasttime,1,2)||':'||substr(w_lasttime,3,2) as w_lasttime
+from tbl_process PC , tbl_worklist W, tbl_product PD
+where PC.w_workno = W.w_workno(+) and W.p_code = PD.p_code(+);
 
 
 

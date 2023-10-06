@@ -19,12 +19,17 @@ insert into tbl_cust_201004 values('1007','허고객','19760301','F','010','2222
 
 select p_no , p_name ,
 to_char(to_date(p_birth ,'yyyymmdd'),'YYYY"년"MM"월"DD"일"')
-|| '('||to_date(substr(p_birth,1,4) ,'yyyy')||')',
-p_gender ,
+|| '('||trunc(months_between('20200101',to_date(p_birth ,'yyyymmdd'))/12,0)||')',
+decode(p_gender ,'M','남','F','여'),
 p_tel1||'-'||p_tel2||'-'||p_tel3 , 
-p_city
+decode(p_city, '10','서울','20','경기','30','강원','40','대구')
 from tbl_cust_201004;
 
+select to_char(sysdate, 'yyyy')-substr(p_birth,1,4) as p_age
+from tbl_cust_201004;
+
+select trunc(months_between('20200101',to_date(p_birth ,'yyyymmdd'))/12,0) from tbl_cust_201004;
+select trunc(months_between(sysdate , '20200000'),0) from tbl_cust_201004;
 create table tbl_injection_201004
 (
 i_code char(4) not null primary key,
@@ -44,6 +49,19 @@ p_no char(4) ,
 i_code char(4),
 p_date date
 );
+
+select substr(p_send , 1,4)||'-'||substr(p_send,5,4),p_no,p_name,i_code,i_name,to_char(p_date,'yyyy-mm-dd')
+from tbl_order_201004 join tbl_cust_201004 using (p_no) join tbl_injection_201004 using(i_code) order by p_no asc ,i_code desc;
+
+select i_code , i_name , count(i_code) 
+from tbl_injection_201004 join tbl_order_201004 using(i_code)
+group by i_code , i_name
+order by i_code desc;
+
+
+select * 
+from tbl_injection_201004 join tbl_order_201004 using(i_code);
+
 
 insert into tbl_order_201004 values('20200001' ,'1001','A001','2020-01-01');
 insert into tbl_order_201004 values('20200002' ,'1002','A001','2020-01-02');

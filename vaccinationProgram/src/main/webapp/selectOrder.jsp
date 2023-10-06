@@ -9,7 +9,7 @@
 <body>
 <%@ include file="header.jsp" %>
 <% 
-	sql="select p_no , p_name ,to_char(to_date(p_birth ,'yyyymmdd'),'YYYY\"년\"MM\"월\"DD\"일\"')|| '('||trunc(months_between('20200101',to_date(p_birth ,'yyyymmdd'))/12,0)||')',decode(p_gender ,'M','남','F','여'),p_tel1||'-'||p_tel2||'-'||p_tel3 , decode(p_city, '10','서울','20','경기','30','강원','40','대구')from tbl_cust_201004";
+	sql="select substr(p_send , 1,4)||'-'||substr(p_send,5,4),p_no,p_name,i_code,i_name,to_char(p_date,'yyyy-mm-dd')from tbl_order_201004 join tbl_cust_201004 using (p_no) join tbl_injection_201004 using(i_code)order by p_no asc ,i_code asc";
 	ps = con.prepareStatement(sql);
 	rs = ps.executeQuery();
 %>
@@ -20,12 +20,12 @@
 		<div>
 			<table>
 				<tr>
+					<th>예방접종이력번호</th>
 					<th>고객번호</th>
 					<th>고객명</th>
-					<th>고객생년월일</th>
-					<th>성별</th>
-					<th>전화번호</th>
-					<th>지역</th>
+					<th>백신코드</th>
+					<th>백신주사명</th>
+					<th>접종일자</th>
 				</tr>
 				<%while(rs.next()){ %>
 				<tr>
