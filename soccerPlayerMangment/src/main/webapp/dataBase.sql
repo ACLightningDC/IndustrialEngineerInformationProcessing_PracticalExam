@@ -9,7 +9,7 @@ player_email varchar2(50),
 back_no number
 );
 
-select * from player_tbl
+select * from player_tbl;
 
 insert into player_tbl values (10001 ,'김유신' , 10 ,'01011112222' ,'80/08/10' ,'ab@naver.com' , 15);
 insert into player_tbl values (10002 ,'강감찬' , 10 ,'01022223333' ,'81/07/10' ,'cd@naver.com' , 20);
@@ -55,7 +55,14 @@ group by player_no ,player_name;
 select player_no , player_name ,sum(player_score) as playerScoreSum ,sum(yellow_card) as playerYellow_cardSum ,sum(red_card) as playerRed_cardSum from record_tbl join player_tbl using(player_no) group by player_no , player_name order by playerScoreSum desc  ,playerRed_cardSum asc , playerYellow_cardSum asc;
 
 --update.jsp
-nvl(substr(player_email.1,instr(player_email,'@',1),-1),' ')
+select 
+nvl(substr(player_email,1,instr(player_email,'@',1)-1),' ') as email_front ,
+nvl(substr(player_email,instr(player_email,'@',1)+1),' ') as email_bottom
+from player_tbl;
+
+dense_rank() over(order by )
+rank() over(order by )
+row_number() over(order by)
 
 이메일 사용시 trim() 사용
 ------------------------------------------------------------------------------
