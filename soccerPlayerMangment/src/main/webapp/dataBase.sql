@@ -54,4 +54,22 @@ group by player_no ,player_name;
 
 select player_no , player_name ,sum(player_score) as playerScoreSum ,sum(yellow_card) as playerYellow_cardSum ,sum(red_card) as playerRed_cardSum from record_tbl join player_tbl using(player_no) group by player_no , player_name order by playerScoreSum desc  ,playerRed_cardSum asc , playerYellow_cardSum asc;
 
- 
+--update.jsp
+nvl(substr(player_email.1,instr(player_email,'@',1),-1),' ')
+
+이메일 사용시 trim() 사용
+------------------------------------------------------------------------------
+  --★select2.jsp(최종)--가장 잘됨
+select player_no, sum(player_score) as total_score,
+  rank() over(order by sum(player_score) desc , sum(red_card asc , sum(yellow_card) asc) as rank 
+  from record_tbl
+  group by player_no;
+
+select player_no, player_name, total_score
+from player_tbl join (player_no, sum(player_score) as total_score,
+  rank() over(order by sum(player_score) desc , sum(red_card asc , sum(yellow_card) asc) as rank 
+  from record_tbl
+  group by player_no)
+  using(player_no)
+  where rank = 1 -- ★★ from 에서 이미 컬럼별칭인 rank를 인식했으므로 사용가능함 (=> "오라클 실행순서" 참조)
+  order by player_no asc;
